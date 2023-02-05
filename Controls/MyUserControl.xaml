@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="WPFNavigation.Controls.MyUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFNavigation.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="First name: " Height="30"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="FirstNameBox" Height="30"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Surname: " Height="30"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="SurnameBox" Height="30"/>
+        </Grid>
+    </Grid>
+</UserControl>

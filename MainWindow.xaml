@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WPFNavigation"
         xmlns:ctrl="clr-namespace:WPFNavigation.Controls"
         xmlns:Behaviors="clr-namespace:WPFNavigation.Behaviour"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Behaviors:OpenCloseRegistryBehavior.OpenClose="True"
@@ -19,6 +20,15 @@
                             Behaviors:FocusBehavior.FocusFirst="true">
 
         </ctrl:MyUserControl>
+        <DatePicker Width="200"
+                    SelectedDate="{Binding MySelectedDateProperty, Mode=TwoWay}"
+                    DisplayDate="{Binding MyDisplayDateProperty, Mode=TwoWay}"
+                    DisplayDateStart="{Binding MyStartDateProperty, Mode=TwoWay}"
+                    DisplayDateEnd="{Binding MyEndDateProperty, Mode=TwoWay}">
+       
+
+
+        </DatePicker>
     </StackPanel>
 </Window>
 

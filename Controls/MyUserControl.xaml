@@ -8,18 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="First name: " Height="30"/>
-            <TextBox Grid.Row="0" Grid.Column="1" x:Name="FirstNameBox" Height="30"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Surname: " Height="30"/>
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="SurnameBox" Height="30"/>
+          
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBox" Height="30" Width="50"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -3,15 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFNavigation"
+        xmlns:local="clr-namespace:WPFNavigation.ViewModel"
         xmlns:ctrl="clr-namespace:WPFNavigation.Controls"
         xmlns:Behaviors="clr-namespace:WPFNavigation.Behaviour"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="800" Width="800"
         Behaviors:OpenCloseRegistryBehavior.OpenClose="True"
         >
+    <Window.Resources>
+        <local:MyViewModel x:Key="MyViewModelInstance" />
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" FontSize="12" Text="{Binding ErrorContent}" />
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
     <StackPanel>
+        <Button x:Name="myButton"
+                Width="100"
+                Height="300">
+            <Button.Content>
+                <Image x:Name="myImage" Source="image1.png"/>
+            </Button.Content>
+
+            <Button.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+            </Button.RenderTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!-- Change the image source -->
+                            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding ElementName=myImage}" Storyboard.TargetProperty="Source">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="image2.png"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <!-- Animate the ScaleX property -->
+                            <DoubleAnimation To="2" AutoReverse="True" Duration="0:0:1" Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"/>
+                            <!-- Change the image source back -->
+                            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding ElementName=myImage}"  Storyboard.TargetProperty="Source">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="image1.png"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
         <CheckBox Padding="20"></CheckBox>
         <TextBox Padding="20"></TextBox>
         <TextBlock Padding="20" Text="---------"></TextBlock>
@@ -29,6 +66,113 @@
 
 
         </DatePicker>
+
+        <Button Content="Click me" Width="100" Height="30">
+            <Button.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Button.RenderTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                     From="1" To="1.5" Duration="0:0:0.2" AutoReverse="True" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+
+       
+        
+        <Button x:Name="Test"
+                Background="Red"
+                Width="100"
+                Height="10"
+                Margin="30">
+     
+
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Duration="0:0:0.250" To="0" 
+                                                            Storyboard.TargetProperty="BorderThickness" />
+                                        <DoubleAnimation Duration="0:0:0.550" To="120" 
+                                                            Storyboard.TargetProperty="Height" />
+                                        <DoubleAnimation Duration="0:0:0.550" To="120" 
+                                                            Storyboard.TargetProperty="Width" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Duration="0:0:0.250" To="0" 
+                                                            Storyboard.TargetProperty="BorderThickness" />
+                                        <DoubleAnimation Duration="0:0:0.550" To="100" 
+                                                            Storyboard.TargetProperty="Height" />
+                                        <DoubleAnimation Duration="0:0:0.550" To="100" 
+                                                            Storyboard.TargetProperty="Width" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+        </Button>
+
+        <Button Content="Click me" Width="100" Height="30">
+            <Button.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Button.RenderTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                     From="1" To="1.5" Duration="0:0:0.2" AutoReverse="True" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <StackPanel Margin="10" DataContext="{StaticResource MyViewModelInstance}">
+            <ComboBox Name="ComboBox1"
+                      Margin="5"
+                      Binding.SourceUpdated="ComboBox_SourceUpdated"
+                      ItemsSource="{Binding MyDropDownListCollection}"
+                      SelectedItem="{Binding ComboBoxOneSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+
+
+                        </TextBlock>
+
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Name="ComboBox2"
+                      Margin="5"
+                      Binding.SourceUpdated="ComboBox_SourceUpdated"
+                      ItemsSource="{Binding MyDropDownListCollection}"
+                      SelectedItem="{Binding ComboBoxTwoSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+
+            </ComboBox>
+        </StackPanel>
     </StackPanel>
+
 </Window>
 

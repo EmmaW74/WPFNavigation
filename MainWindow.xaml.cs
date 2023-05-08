@@ -27,5 +27,26 @@ namespace WPFNavigation
             InitializeComponent();
             this.DataContext = myDateObject;
         }
+
+        private bool canForceValidation = true;
+
+        private void ComboBox_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+            if (ComboBox1 == e.TargetObject && canForceValidation)
+            {
+                canForceValidation = false;
+                ComboBox2.GetBindingExpression(ComboBox.SelectedItemProperty).UpdateSource();
+            }
+            else if (ComboBox2 == e.TargetObject && canForceValidation)
+            {
+                canForceValidation = false;
+                ComboBox1.GetBindingExpression(ComboBox.SelectedItemProperty).UpdateSource();
+            }
+            else
+            {
+                canForceValidation = true;
+            }
+        }
     }
 }
